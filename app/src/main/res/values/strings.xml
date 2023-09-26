@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TMDB App</string>
+    <string name="retry">Retry</string>
+    <string name="search">Search</string>
+    <string name="search_movies">Search movies</string>
+    <string name="back_button">Back</string>
+    <string name="no_item_found">No item found</string>
+    <string name="no_search_history">No search history</string>
+    <string name="overview">Overview</string>
+    <string name="see_more">See more</string>
+    <string name="see_less">See less</string>
+    <string name="original_title">Original Title</string>
+    <string name="popularity">Popularity</string>
+    <string name="release_date">Release date</string>
+    <string name="runtime">Runtime</string>
+    <string name="status">Status</string>
+    <string name="video">Video</string>
+    <string name="vote_count">Vote count</string>
+</resources>
