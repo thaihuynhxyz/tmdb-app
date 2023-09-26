@@ -1,6 +1,7 @@
 package xyz.thaihuynh.tmdb.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import xyz.thaihuynh.tmdb.data.MovieRepository
 import xyz.thaihuynh.tmdb.data.api.TmdbService
@@ -79,11 +80,19 @@ object SingletonModule {
     }
 
     @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext applicationContext: Context
+    ): SharedPreferences {
+        return applicationContext.getSharedPreferences("tmdb", Context.MODE_PRIVATE)
+    }
+
+    @Provides
     fun provideMovieRepository(
         apiService: TmdbService,
         movieDao: MovieDao,
         pageDao: PageDao,
+        sharedPreferences: SharedPreferences,
     ): MovieRepository {
-        return MovieRepository(apiService, movieDao, pageDao)
+        return MovieRepository(apiService, movieDao, pageDao, sharedPreferences)
     }
 }

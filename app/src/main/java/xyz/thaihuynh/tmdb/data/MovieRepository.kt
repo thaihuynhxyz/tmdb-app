@@ -1,5 +1,6 @@
 package xyz.thaihuynh.tmdb.data
 
+import android.content.SharedPreferences
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
@@ -15,6 +16,7 @@ class MovieRepository(
     private val tmdbService: TmdbService,
     private val movieDao: MovieDao,
     private val pageDao: PageDao,
+    private val sharedPreferences: SharedPreferences,
 ) {
 
     /**
@@ -27,7 +29,8 @@ class MovieRepository(
         try {
             val paging = tmdbService.getTrendingMovies(page)
             val nextPage = if (paging.page == paging.totalPages) null else paging.page + 1
-            if (page == 1) {
+            val lastCache = sharedPreferences.getLong("last_cache", 0)
+            if (page == 1 || System.currentTimeMillis() - lastCache > 24 * 60 * 60 * 1000) {
                 pageDao.deleteAll()
             }
             pageDao.insert(
@@ -38,6 +41,7 @@ class MovieRepository(
                     nextPage,
                 )
             )
+            sharedPreferences.edit().putLong("last_cache", System.currentTimeMillis()).apply()
             movieDao.insertAll(paging.results)
             return LoadResult.Page(paging.results, null, nextPage)
         } catch (e: Exception) {
