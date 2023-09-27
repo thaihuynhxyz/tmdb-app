@@ -21,5 +21,4 @@ api_key="YOUR_API_KEY"
 
 ## Remaining tasks
 - [ ] Add tests
-- [ ] Show offline state when no internet connection
 - [ ] Adaptive layout for tablets

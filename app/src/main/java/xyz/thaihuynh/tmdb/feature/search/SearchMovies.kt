@@ -32,6 +32,7 @@ fun SearchMovies(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToPlayer: (Int) -> Unit,
+    isOffline: Boolean = false,
 ) {
 
     var active by remember { mutableStateOf(false) }
@@ -49,6 +50,7 @@ fun SearchMovies(
         },
         placeholder = { Text(text = stringResource(id = R.string.search_movies)) },
         shape = SearchBarDefaults.fullScreenShape,
+        enabled = !isOffline,
         leadingIcon = {
             if (active) {
                 Icon(

@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -38,7 +39,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
+import xyz.thaihuynh.tmdb.R
 import xyz.thaihuynh.tmdb.data.Movie
+import java.net.UnknownHostException
 
 @Composable
 fun MovieGrid(
@@ -50,16 +53,18 @@ fun MovieGrid(
         is LoadState.Loading -> {
             LinearProgressIndicator()
         }
+
         is LoadState.Error -> {
-            val message =
-                (items.loadState.refresh as? LoadState.Error)?.error?.message ?: return
+            val error = (items.loadState.refresh as? LoadState.Error)?.error
+            val message = error?.message ?: return
 
             ErrorScreen(
-                message = message,
+                message = if (error is UnknownHostException) stringResource(id = R.string.you_are_offline) else message,
                 modifier = Modifier.fillMaxSize(),
-                refresh = { items.retry() }
+                refresh = { items.retry() },
             )
         }
+
         else -> {
             LazyVerticalGrid(
                 modifier = modifier,
@@ -91,15 +96,14 @@ fun MovieGrid(
                         }
 
                         is LoadState.Error -> {
-                            val message =
-                                (items.loadState.append as? LoadState.Error)?.error?.message
-                                    ?: return@LazyVerticalGrid
+                            val error = (items.loadState.append as? LoadState.Error)?.error
+                            val message = error?.message ?: return@LazyVerticalGrid
 
                             item(span = {
                                 GridItemSpan(maxLineSpan)
                             }) {
                                 ErrorScreen(
-                                    message = message,
+                                    message = if (error is UnknownHostException) stringResource(id = R.string.you_are_offline) else message,
                                     modifier = Modifier.padding(vertical = 8.dp),
                                     refresh = { items.retry() },
                                 )

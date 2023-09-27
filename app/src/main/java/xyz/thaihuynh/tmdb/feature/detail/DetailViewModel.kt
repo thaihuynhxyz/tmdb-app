@@ -18,7 +18,6 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-
     private val id =
         savedStateHandle.get<String>("id")?.toInt() ?: throw IllegalArgumentException("Missing id")
 
