@@ -41,7 +41,7 @@ class MovieRepository(
                     nextPage,
                 )
             )
-            sharedPreferences.edit().putLong("last_cache", System.currentTimeMillis()).apply()
+            sharedPreferences.edit().putLong("last_cache", System.currentTimeMillis())?.apply()
             movieDao.insertAll(paging.results)
             return LoadResult.Page(paging.results, null, nextPage)
         } catch (e: Exception) {

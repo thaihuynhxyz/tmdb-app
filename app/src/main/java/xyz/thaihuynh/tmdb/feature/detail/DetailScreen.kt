@@ -30,7 +30,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
@@ -54,7 +53,6 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.window.layout.DisplayFeature
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import xyz.thaihuynh.tmdb.R
@@ -70,8 +68,6 @@ import kotlin.math.min
 @Composable
 fun DetailMovie(
     modifier: Modifier = Modifier,
-    windowSizeClass: WindowSizeClass,
-    displayFeatures: List<DisplayFeature>,
     viewModel: DetailViewModel = hiltViewModel(),
     onUpPress: () -> Unit = { }
 ) {
@@ -244,7 +240,7 @@ fun Body(
                                 text = "${stringResource(R.string.runtime)}: ",
                             )
                             Text(
-                                text = "${movie.runtime}",
+                                text = "${movie.runtime ?: 0}",
                             )
                         }
                         Spacer(Modifier.height(16.dp))
@@ -255,7 +251,7 @@ fun Body(
                             Text(
                                 text = "${stringResource(R.string.status)}: ",
                             )
-                            Text(text = "${movie.status}")
+                            Text(text = movie.status ?: "")
                         }
                         Spacer(Modifier.height(16.dp))
                         Row(
@@ -317,7 +313,7 @@ private fun Title(movie: Movie, scrollProvider: () -> Int) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "$${movie.budget}",
+            text = "$${movie.budget ?: 0}",
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = hzPadding

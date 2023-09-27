@@ -38,8 +38,6 @@ fun TmdbApp(
         }
         composable(Screen.Movie.route) { _ ->
             DetailMovie(
-                windowSizeClass = windowSizeClass,
-                displayFeatures = displayFeatures,
                 onUpPress = appState::navigateBack,
             )
         }

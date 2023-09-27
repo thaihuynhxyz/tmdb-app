@@ -168,7 +168,7 @@ fun MovieInfo(item: Movie, modifier: Modifier) {
             text = item.title ?: "N/A",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium.copy(color = Color.White),
         )
         item.releaseDate?.let {
             Row {
@@ -180,7 +180,7 @@ fun MovieInfo(item: Movie, modifier: Modifier) {
                 )
                 Text(
                     text = it,
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.titleSmall.copy(color = Color.White),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     modifier = Modifier.padding(start = 8.dp)
