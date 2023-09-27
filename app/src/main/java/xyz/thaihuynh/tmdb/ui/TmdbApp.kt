@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -51,12 +53,16 @@ fun HomeScreen(
 ) {
     Box {
         SearchMovies(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { contentDescription = "SearchBar" },
             navigateToPlayer = navigateToPlayer,
             isOffline = isOffline,
         )
         TrendingMovies(
-            modifier = Modifier.padding(top = 80.dp),
+            modifier = Modifier
+                .padding(top = 80.dp)
+                .semantics { contentDescription = "TrendingList" },
             navigateToPlayer = navigateToPlayer,
         )
         if (isOffline) {
@@ -65,6 +71,7 @@ fun HomeScreen(
                     .padding(16.dp)
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
+                    .semantics { contentDescription = "OfflineBox" },
             ) {
                 OfflineRow()
             }

@@ -51,7 +51,7 @@ fun MovieGrid(
 ) {
     when (items.loadState.refresh) {
         is LoadState.Loading -> {
-            LinearProgressIndicator()
+            LinearProgressIndicator(modifier)
         }
 
         is LoadState.Error -> {
@@ -60,7 +60,7 @@ fun MovieGrid(
 
             ErrorScreen(
                 message = if (error is UnknownHostException) stringResource(id = R.string.you_are_offline) else message,
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier.fillMaxSize(),
                 refresh = { items.retry() },
             )
         }

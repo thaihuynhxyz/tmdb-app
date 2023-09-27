@@ -20,5 +20,4 @@ api_key="YOUR_API_KEY"
 ```
 
 ## Remaining tasks
-- [ ] Add tests
 - [ ] Adaptive layout for tablets
